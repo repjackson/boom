@@ -10,7 +10,7 @@ Template.registerHelper 'fixed', (input) ->
 Template.registerHelper 'is_loading', () ->
     Session.get('loading')
 
-Template.home.onCreated ->
+Template.layout.onCreated ->
     @autorun -> Meteor.subscribe 'query', 
         Session.get('query')
         picked_tags.array()
@@ -20,7 +20,7 @@ Template.home.onCreated ->
         picked_tags.array()
         , ->
 
-Template.home.helpers
+Template.layout.helpers
     one_doc: ->
         count = Docs.find({}).count()
         count is 1
@@ -45,7 +45,7 @@ Template.home.helpers
 
     picked_tags: -> picked_tags.array()
 
-Template.home.events
+Template.layout.events
     'click .clear_query': ->
         # console.log @
         Session.set('query', null)
@@ -193,13 +193,13 @@ Template.print_this.events
         console.log @
         
         
-Template.home.events
+Template.layout.events
     'click .pick_tag': ->
         picked_tags.push @title
     'click .unpick_tag': ->
         picked_tags.remove @valueOf()
         
-Template.home.helpers
+Template.layout.helpers
     picked_tags: ->
         picked_tags.array()
     ten_tags: ->

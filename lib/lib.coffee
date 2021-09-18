@@ -4,6 +4,20 @@
 # Docs.before.insert (userId, doc)->
 
 
+
+
+Router.configure
+    layoutTemplate: 'layout'
+    notFoundTemplate: 'not_found'
+    loadingTemplate: 'splash'
+    trackPageView: true
+
+
+
+Router.route '/', -> @render 'home'
+Router.route '*', -> @render 'home'
+
+
 if Meteor.isClient
     # console.log $
     $.cloudinary.config
@@ -16,6 +30,47 @@ if Meteor.isServer
         api_secret: Meteor.settings.cloudinary_secret
 
 
+
+# force_loggedin =  ()->
+#     if !Meteor.userId()
+#         @render 'login'
+#     else
+#         @next()
+
+# Router.onBeforeAction(force_loggedin, {
+#   # only: ['admin']
+#   # except: ['register', 'forgot_password','reset_password','front','delta','doc_view','verify-email']
+#   except: [
+#     'login'
+#     'register'
+#     # 'users'
+#     # 'services'
+#     # 'service_view'
+#     # 'products'
+#     # 'product_view'
+#     # 'rentals'
+#     # 'rental_view'
+#     # 'home'
+#     # 'forgot_password'
+#     # 'reset_password'
+#     # 'user_orders'
+#     # 'user_food'
+#     # 'user_finance'
+#     # 'user_dashboard'
+#     # 'verify-email'
+#     # 'food_view'
+#   ]
+# });
+
+
+# Router.route('enroll', {
+#     path: '/enroll-account/:token'
+#     template: 'reset_password'
+#     onBeforeAction: ()=>
+#         Meteor.logout()
+#         Session.set('_resetPasswordToken', this.params.token)
+#         @subscribe('enrolledUser', this.params.token).wait()
+# })
 
 
 # Docs.after.insert (userId, doc)->

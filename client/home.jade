@@ -32,58 +32,24 @@ head
         
         gtag('config', 'G-GLYPPRGJFQ');
 
-body
-    +home
     
-template(name='home')
+template(name='layout')
     // img.ui.fluid.image.checkin_banner(src="{{c.url 'frontrange' width=1000 height=1000 crop='crop'}}")
     +nav
-    .ui.bottom.attached.pushable.segment.scroling
-        // +left_sidebar
-        // +right_sidebar
-        // +topbar
-        // +cartbar
-        // +walletbar
-        // +secnav
-        if logging_in
-            .ui.center.aligned.basic.segment
-                i.massive.loading.yin.yang.grey.icon
-    //     else
-    .sixteen.wide.center.aligned.column
-            
-        each picked_tags
-            a.ui.big.active.label.unpick_tag.pointer.zoomer #{this}
-        .ui.icon.input   
-            if query
-                i.remove.link.large.icon.clear_query
-            else
-                i.search.large.icon
-            input#search(type='text' value=query)
-        each result_tags
-            a.ui.compact.large.button.pick_tag.zoomer.pointer #{title}
-        
-        .ui.centered.cards.scrolling
-            each results
-                div(class=card_class)
-                    img.ui.image(src="{{c.url image_id }}" )
-                    img.ui.image(src="{{c.url image }}" )
-                    .content
-                        .ui.header
-                            |#{title}
-                        .ui.label model:#{model}
-                        .ui.label #{points}p
-                        +print_this
-                        if in_dev 
-                            +remove_button
-                        each ten_tags 
-                            .ui.label #{this}
-                        if one_doc
-                            if Company 
-                                +i name='business'
-                                each Company
-                                    .ui.large.label #{this}
+    // .ui.bottom.attached.pushable.segment.scroling
+    //     // +left_sidebar
+    //     // +right_sidebar
+    //     // +topbar
+    //     // +cartbar
+    //     // +walletbar
+    //     // +secnav
+    //     if logging_in
+    //         .ui.center.aligned.basic.segment
+    //             i.massive.loading.yin.yang.grey.icon
+    // //     else
+    // // .sixteen.wide.center.aligned.column
+    +yield
 
-                  
 template(name='print_this')
     i.circular.large.code.link.icon.print_this
 template(name='remove_button')

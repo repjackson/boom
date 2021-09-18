@@ -363,7 +363,7 @@ img, .button{
 
 .image:not(.flat), img {
     border-radius:10px !important; 
-    filter: invert(.9) !important;
+    /*filter: invert(.9) !important;*/
 }
 
 /*}*/
