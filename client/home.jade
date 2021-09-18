@@ -1,0 +1,90 @@
+head
+    title dao
+    meta(name='viewport', content='user-scalable=no, initial-scale=1.0, maximum-scale=1.0, width=device-width')
+    meta(name='apple-mobile-web-app-capable', content='yes')
+    meta(name='apple-mobile-web-app-status-bar-style', content='black')
+    meta(name="msapplication-TileColor" content="#000000")
+    meta(name="theme-color" content="#000000")
+    link(rel='stylesheet' type='text/css' href='https://cdn.jsdelivr.net/npm/fomantic-ui@2.7.4/dist/semantic.min.css')
+    link(href="https://fonts.googleapis.com/css?family=Ubuntu:300,400&display=swap" rel="stylesheet")
+    link(rel="preconnect" href="https://fonts.gstatic.com")
+    // link(href="https://fonts.googleapis.com/css2?family=Benne&display=swap" rel="stylesheet")
+    link(rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png")
+    link(rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png")
+    link(rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png")
+    link(rel="manifest" href="/site.webmanifest")
+    link(rel="mask-icon" href="/safari-pinned-tab.svg" color="#000000")
+    link(href="https://cdn.jsdelivr.net/npm/suneditor@latest/dist/css/suneditor.min.css" rel="stylesheet")
+
+    script(src='https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js')
+    script(src='https://cdn.jsdelivr.net/npm/fomantic-ui@2.7.4/dist/semantic.min.js')
+    
+    // script(src="https://cdn.jsdelivr.net/npm/sweetalert2@9")
+    script(src="https://cdn.jsdelivr.net/npm/suneditor@latest/dist/suneditor.min.js")
+    script(src="https://cdn.jsdelivr.net/npm/suneditor@latest/src/lang/en.js")
+
+    // script(src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.4.1/chart.js")
+    //- script(async='', src='https://www.googletagmanager.com/gtag/js?id=UA-140259454-1')
+    script.
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        
+        gtag('config', 'G-GLYPPRGJFQ');
+
+body
+    +home
+    
+template(name='home')
+    // img.ui.fluid.image.checkin_banner(src="{{c.url 'frontrange' width=1000 height=1000 crop='crop'}}")
+    // +nav
+    // .ui.bottom.attached.pushable.segment.scroling
+    //     // +left_sidebar
+    //     // +right_sidebar
+    //     // +topbar
+    //     // +cartbar
+    //     // +walletbar
+    //     // +secnav
+    //     if logging_in
+    //         .ui.center.aligned.basic.segment
+    //             i.massive.loading.yin.yang.grey.icon
+    //     else
+    .sixteen.wide.center.aligned.column
+            
+        each picked_tags
+            a.ui.big.active.label.unpick_tag.pointer.zoomer #{this}
+        .ui.icon.input   
+            if query
+                i.remove.link.large.icon.clear_query
+            else
+                i.search.large.icon
+            input#search(type='text' value=query)
+        each result_tags
+            a.ui.compact.large.button.pick_tag.zoomer.pointer #{title}
+        
+        .ui.centered.cards.scrolling
+            each results
+                div(class=card_class)
+                    img.ui.image(src="{{c.url image_id }}" )
+                    img.ui.image(src="{{c.url image }}" )
+                    .content
+                        .ui.header
+                            |#{title}
+                        .ui.label model:#{model}
+                        .ui.label #{points}p
+                        +print_this
+                        if in_dev 
+                            +remove_button
+                        each ten_tags 
+                            .ui.label #{this}
+                        if one_doc
+                            if Company 
+                                +i name='business'
+                                each Company
+                                    .ui.large.label #{this}
+
+                  
+template(name='print_this')
+    i.circular.large.code.link.icon.print_this
+template(name='remove_button')
+    i.circular.large.remove.link.icon.print_this
