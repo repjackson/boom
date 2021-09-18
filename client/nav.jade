@@ -1,0 +1,234 @@
+template(name='nav')
+    #topnav.ui.fluid.attached.borderless.inverted.blue.menu.topnav.hscroll
+        unless connected
+            .item 
+                +status
+        if connected
+            unless subs_ready
+                .icon.item
+                    i.big.loading.grey.yin.yang.icon
+        .item 
+            i.home.icon
+            |Boom Learning
+        .item
+            i.users.icon
+            |Classes
+        .item
+            i.book.icon
+            |Library
+        .item 
+            i.list.icon
+            |Reports
+        .item 
+            i.shopping.cart.icon
+            |Store
+        .item 
+            i.paint.brush.icon
+            |Studio
+            
+            a.icon.item.toggle_leftbar.no_blink
+               i.bars.large.icon 
+            
+            a.header.item.zoomer(href='/' class="{{isActiveRoute 'home'}}" title='home')
+                +i name='home' cl='zoomer'
+            .input.item
+                .ui.icon.transparent.input
+                    i.search.icon
+                    input(type='text' placeholder='search')
+            // .right.menu
+            //     a.item.log_out(title='sign out')
+            //         i.sign.out.icon
+            //         |sign out
+            // else 
+            //     a.item(href="/login" title='sign in')
+            //         i.sign.in.icon
+            //         |sign in
+            //       .right.menu
+            // a.icon.item.send_points.zoomer(title='send points' class="{{isActiveRoute 'edit'}}")
+            //     +i name='plus' cl='zoomer'
+            //     // i.large.green.plus.icon
+        .right.menu
+            a.icon.item(href='/add' title='add doc')
+                i.plus.large.icon
+            a.icon.item.toggle_topbar(title='alerts')
+                i.bell.outline.large.icon
+            if currentUser
+                a.icon.item.zoomer.fly_left(href='/mail' class="{{isActiveRoute 'mail'}}")
+                    i.large.mail.icon
+                if logging_out
+                    .icon.item
+                        i.large.yin.yang.loading.icon
+                else
+                    a.item(href="/user/#{currentUser.username}" class="{{isActiveRoute 'profile'}}")
+                        if currentUser.image_id
+                            img.ui.avatar.image(src="{{c.url currentUser.image_id width=200 height=200 gravity='face'}}")
+                        else
+                            i.user.icon
+                        strong #{currentUser.name}
+                        |&nbsp;
+                    a.item(href="/user/#{currentUser.username}/points" class="{{isActiveRoute 'user_points'}}")
+                        strong {{int currentUser.points}}p
+                    a.icon.item.toggle_rightbar.no_blink
+                       i.bars.large.icon 
+
+            unless currentUser
+                if subs_ready
+                    a.icon.item(href='/login' title='login') 
+                        i.sign.in.large.icon
+                else 
+                    i.yin.yang.loading.icon
+     #topnav.ui.fluid.attached.borderless.inverted.small.menu.topnav.hscroll
+        if connected
+            a.header.item.zoomer(href='/groups' class="{{isActiveRoute 'groups'}}" title='groups')
+                +i name='campfire' cl='zoomer'
+            // a.header.item.zoomer(href='/chat' class="{{isActiveRoute 'chat'}}")
+            //     +i name='chat' cl='zoomer shadowed'
+            a.header.item.zoomer(href='/rentals' class="{{isActiveRoute 'rentals'}}" title='rentals')
+                +i name='clock' cl='zoomer'
+            a.header.disabled.item.zoomer(href='/wiki' class="{{isActiveRoute 'wikipedia'}}" title='wikipedia')
+                +i name='wikipedia' cl='zoomer shadowed'
+            // a.header.item.zoomer(href='/duck' class="{{isActiveRoute 'duck'}}" title='')
+            //     +i name='search' cl='zoomer'
+            a.header.disabled.item.zoomer(href='/images' class="{{isActiveRoute 'images'}}" title='images')
+                +i name='image' cl='zoomer'
+            a.header.disabled.item.zoomer(href='/questions' class="{{isActiveRoute 'questions'}}" title='questions')
+                +i name='ask-question' cl='zoomer'
+            a.header.item.zoomer(href='/subs' class="{{isActiveRoute 'reddit'}}" title='reddit')
+                +i name='reddit' cl='zoomer'
+            a.header.item.zoomer(href='/posts' class="{{isActiveRoute 'posts'}}" title='posts')
+                +i name='blog' cl='zoomer'
+            a.header.item.zoomer(href='/deliveries' class="{{isActiveRoute 'deliveries'}}" title='deliveries')
+                +i name='truck' cl='zoomer'
+            a.header.item.zoomer(href='/transfers' class="{{isActiveRoute 'home'}}" title='point transfers')
+                +i name='transfer-between-users' cl='zoomer'
+            a.header.item.zoomer(href='/users' class="{{isActiveRoute 'users'}}" title='users')
+                +i name='groups' cl='zoomer'
+            a.header.item.zoomer(href='/products' class="{{isActiveRoute 'products'}}" title='shop')
+                +i name='shop' cl='zoomer'
+            a.header.item.zoomer(href='/food' class="{{isActiveRoute 'food'}}" title='food')
+                +i name='food' cl='zoomer'
+            a.header.item.zoomer(href='/drinks' class="{{isActiveRoute 'drinks'}}" title='drinks')
+                +i name='beer' cl='zoomer'
+            a.header.item.zoomer(href='/tasks' class="{{isActiveRoute 'tasks'}}" title='tasks')
+                +i name='tasks' cl='zoomer'
+            a.header.item.zoomer(href='/places' class="{{isActiveRoute 'places'}}" title='places')
+                +i name='marker' cl='zoomer'
+            a.header.item.zoomer(href='/badges' class="{{isActiveRoute 'badges'}}" title='badges')
+                +i name='certificate' cl='zoomer'
+
+
+template(name='topbar')
+    .ui.fluid.attached.inverted.segment.topbar.top.sidebar
+        .ui.middle.aligned.divided.list
+            each recent_alerts
+                +recent_alert
+        a.ui.basic.inverted.button.item.close_topbar(href="/inbox")
+            i.inbox.icon
+            |inbox
+        
+template(name='recent_alert')        
+    .item.alert
+        .right.floated.content
+            i.eye.link.icon.mark_read(title='mark read')
+        img.ui.avatar.image(src="{{c.url author.profile_image_id height=200 width=200 gravity='face' crop='fill'}}")
+        .content
+            .header
+                |#{description} 
+            .description #{author.name} #{when}
+            
+            
+            
+            
+// template(name='cartbar')
+//     .ui.right.wide.sidebar.cartbar
+//         +cart
+        
+template(name='walletbar')
+    .ui.right.sidebar.walletbar
+        +user_points
+        
+template(name='left_sidebar')
+    .ui.left.sidebar.inverted.vertical.menu
+        // a.item.toggle_leftbar.no_blink(href='/' class="{{isActivePath '/'}}" title='home')
+        //     img.ui.image(src="https://rosettahall.com/wp-content/uploads/2020/12/Rosetta-White-Transparent-Art-Board.png")
+        // .search.item(title='search')
+        //     .ui.icon.transparent.input
+        //         i.search.icon
+        //         input.search_global(type='text')
+        +leftbar_nav_item label='reddit' icon='reddit' route='subs'
+        +leftbar_nav_item label='food' icon='food' route='food'
+        +leftbar_nav_item label='beer' icon='beer' route='drinks'
+        +leftbar_nav_item label='inventory' icon='grocery-shelf' route='items'
+        +leftbar_nav_item label='tasks' icon='tasks' route='tasks'
+        +leftbar_nav_item label='reviews' icon='feedback' route='reviews'
+        +leftbar_nav_item label='badges' icon='warranty' route='badges'
+        +leftbar_nav_item label='orders' icon='order-history' route='orders'
+        +leftbar_nav_item label='posts' icon='blog' route='posts'
+        +leftbar_nav_item label='roles' icon='shield' route='roles'
+        +leftbar_nav_item label='users' icon='groups' route='users'
+        +leftbar_nav_item label='groups' icon='campfire' route='groups'
+        +leftbar_nav_item label='images' icon='image' route='images'
+        +leftbar_nav_item label='deliveries' icon='delivery' route='deliveries'
+        +leftbar_nav_item label='ingredients' icon='ingredients' route='ingredients'
+        +leftbar_nav_item label='recipes' icon='beer-recipe' route='recipes'
+        +leftbar_nav_item label='questions' icon='question' route='questions'
+        if is_admin
+            .divider
+            a.ui.button.set_model.toggle_leftbar.no_blink(href="/m/model" class="{{isActivePath '/m/model'}}")
+                i.large.shield.icon
+                |admin
+            a.ui.button.set_user.toggle_leftbar.no_blink(href="/users" class="{{isActiveRoute '/users'}}")
+                i.large.users.icon
+                | users
+            a.ui.button.toggle_leftbar.zoomer(href='/orders' class="{{isActivePath '/orders'}}" title='orders')
+                i.large.list.icon
+                | orders
+
+template(name='leftbar_nav_item')
+    a.item.toggle_leftbar(href="/#{route}" class="{{isActiveRoute regex=route}}")
+        +i name=icon cl='ui avatar image'
+        | #{label}
+
+
+
+template(name='right_sidebar')
+    // .ui.right.wide.sidebar.rightbar.filled
+    // .ui.right.sidebar.vertical.menu.rightbar(style="background-color:#062639;")
+    .ui.right.sidebar.vertical.inverted.small.menu.rightbar
+        with currentUser
+            a.ui.item.toggle_rightbar.no_blink(href="/user/#{username}" class="{{isActiveRoute 'user_layout'}}")
+                img.ui.avatar.image(src="{{c.url image_id height=200 width=200 gravity='face' crop='fill'}}")
+                |#{name}
+                small (#{currentUser.username})
+            +rightbar_nav_item label='dashboard' icon='dashboard' route='dashboard'
+            +rightbar_nav_item label='bookmarks' icon='bookmark' route='bookmarks'
+            // +rightbar_nav_item label='checkins' icon='satisfaction' route='checkins'
+            +rightbar_nav_item label='posts' icon='blog' route='posts'
+            +rightbar_nav_item label='topups' icon='donation' route='topups'
+            +rightbar_nav_item label='work' icon='services' route='work'
+            +rightbar_nav_item label='tasks' icon='tasks' route='tasks'
+            +rightbar_nav_item label='chat' icon='chat' route='chat'
+            +rightbar_nav_item label='badges' icon='prize' route='badges'
+            +rightbar_nav_item label='timeclock' icon='clock' route='timeclock'
+            +rightbar_nav_item label='schedule' icon='calendar' route='schedule'
+            +rightbar_nav_item label='payroll' icon='money' route='payroll'
+            +rightbar_nav_item label='orders' icon='order-history' route='orders'
+            +rightbar_nav_item label='points' icon='coins' route='points'
+            +rightbar_nav_item label='groups' icon='campfire' route='groups'
+            +rightbar_nav_item label='checkins' icon='checked-2' route='checkins'
+            +rightbar_nav_item label='sent' icon='sent' route='sent'
+            +rightbar_nav_item label='topups' icon='donation' route='topups'
+            +rightbar_nav_item label='friends' icon='groups' route='topups'
+            +rightbar_nav_item label='friends' icon='omoneyrders' route='orders'
+            a.ui.button.logout.toggle_rightbar
+                if is_logging_out
+                    i.refresh.loading.icon
+                else
+                    +i name='exit' cl='ui avatar image'
+                |logout
+            
+            
+template(name='rightbar_nav_item')
+    a.item.toggle_rightbar(href="/user/#{currentUser.username}/#{route}" class="{{isActiveRoute regex='user_checkins'}}")
+        +i name=icon cl='ui avatar image'
+        | #{label}

@@ -1,0 +1,75 @@
+template(name='login')
+    .ui.stackable.padded.grid
+        .centered.row
+            .six.wide.center.aligned.column
+                if is_logging_in
+                    i.massive.loading.yin.yang.slice.icon
+                else 
+                    i.massive.yin.yang.slice.icon
+                .ui.center.aligned.inline.header login
+                .ui.hidden.divider
+                .ui.inline.small.header 
+                    i.user.outline.icon
+                    |username
+                .ui.fluid.large.input(class=enter_class)
+                    input.username(type='text')
+                .spacer
+                .ui.inline.small.header 
+                    i.lock.icon
+                    | password
+                .ui.fluid.large.input(class=enter_class)
+                    input.password(type='password')
+                .ui.hidden.divider
+                .ui.fluid.big.basic.button.enter(title="login #{username}" class=enter_class)
+                    i.sign.in.alternate.icon
+                    |login
+                    strong #{username}
+                .ui.center.aligned.basic.segment    
+                    a.ui.basic.button(href='/register')
+                        i.plus.icon
+                        |register
+                    // a.ui.basic.button(href='/forgot_password')
+                    //     i.refresh.icon
+                    //     |forgot password
+template(name='register')
+    .ui.stackable.grid
+        .centered.middle.aligned.row
+            .ten.wide.column
+                .ui.center.aligned.basic.segment
+                    i.massive.yin.yang.icon
+                    .ui.center.aligned.inline.header
+                        | register
+                div
+                .ui.inline.small.header 
+                    i.user.icon
+                    |username
+                .ui.fluid.large.input(class=login_class)
+                    input.username(type='text')
+                .spacer
+                .ui.inline.small.header 
+                    i.lock.icon
+                    | password
+                .ui.fluid.large.input(class=login_class)
+                    input.password(type='password')
+
+                //- .ui.fluid.labeled.input(class=login_class)
+                //-     .ui.small.inline.header 
+                //-         i.lock.grey.icon
+                //-         | password again
+                //-     input.password2(type='password')
+                .ui.hidden.divider
+                // if can_register
+                //- if registering
+                .ui.fluid.big.basic.button.register(class=enter_class)
+                    i.user.plus.icon
+                    |register
+                // else
+                //     .ui.fluid.big.disabled.button(class=enter_class)
+                //         i.user.plus.icon
+                //         |register
+                //     // // .ui.small.header username "#{username}" found
+                    
+                //     a.ui.basic.button(href='/login') 
+                //         i.right.chevron.icon
+                //         // +i name='internal' cl='ui avatar image'
+                //         |login
