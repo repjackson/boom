@@ -8,8 +8,8 @@ body {
      /*background: rgba(0,0,0,.05) !important; */
     /*scroll-behavior: smooth;*/
     /*margin-top: 5em;*/
-    background: rgba(42,42,42,1) !important;
-    filter: invert(1) !important; 
+    /*background: rgba(42,42,42,1) !important;*/
+    /*filter: invert(1) !important; */
     /* overscroll-behavior: none; */
     transition: all 1s ease !important;
     /*background: darkgrey !important; */
