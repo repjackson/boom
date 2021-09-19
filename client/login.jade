@@ -2,10 +2,13 @@ template(name='login')
     .ui.stackable.padded.grid
         .centered.row
             .six.wide.center.aligned.column
-                if is_logging_in
-                    i.massive.loading.yin.yang.slice.icon
-                else 
-                    i.massive.yin.yang.slice.icon
+                // if is_logging_in
+                //     i.massive.loading.yin.yang.slice.icon
+                // else 
+                .ui.header 
+                    +i name='university'
+                    |Boom Learning
+                // i.big.univeristy.icon
                 .ui.center.aligned.inline.header login
                 .ui.hidden.divider
                 .ui.inline.small.header 
@@ -36,7 +39,7 @@ template(name='register')
         .centered.middle.aligned.row
             .ten.wide.column
                 .ui.center.aligned.basic.segment
-                    i.massive.yin.yang.icon
+                    i.massive.book.icon
                     .ui.center.aligned.inline.header
                         | register
                 div
