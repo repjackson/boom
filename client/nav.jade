@@ -7,25 +7,24 @@ template(name='nav')
             unless subs_ready
                 .icon.item
                     i.big.loading.grey.yin.yang.icon
-        a.header.item.zoomer(href='/' class="{{isActiveRoute 'home'}}" title='home')
-            +i name='home' cl='zoomer'
-            // i.home.icon
-            |Boom Learning
-        .item
-            i.users.icon
-            |Classes
-        .item
-            i.book.icon
-            |Library
-        .item 
-            i.list.icon
-            |Reports
-        .item 
-            i.shopping.cart.icon
-            |Store
-        .item 
-            i.paint.brush.icon
-            |Studio
+            a.header.item.zoomer(href='/' class="{{isActiveRoute 'home'}}" title='home')
+                i.home.icon
+                |Boom Learning
+            a.item(href="/classes")
+                i.users.icon
+                |Classes
+            a.item(href="/library")
+                i.book.icon
+                |Library
+            a.item(href="/reports") 
+                i.list.icon
+                |Reports
+            a.item(href="/store")
+                i.shopping.cart.icon
+                |Store
+            a.item(href="/studio") 
+                i.paint.brush.icon
+                |Studio
             
             a.icon.item.toggle_leftbar.no_blink
                i.bars.large.icon 
