@@ -1,0 +1,283 @@
+template(name='user_layout')
+    +nav
+    .ui.bottom.attached.pushable.segment.scrolling
+        +left_sidebar
+        +right_sidebar
+        +topbar
+        with user_from_username_param
+            .ui.stackable.padded.grid.pusher
+                .row
+                    //- img.ui.image.checkin_banner(src="{{c.url banner_image width=1000 height=1000 crop='crop'}}")
+                    .three.wide.column
+                        a.item.zoomer(href="/user/#{username}")
+                            img.ui.centered.rounded.small.image(src="{{c.url image_id height=300 width=300 gravity='face' crop='fill'}}")
+                        // .spacer
+                        a.ui.massive.center.aligned.header(href="/user/#{username}")
+                            h1 #{username}
+                        div
+                        // i.refresh.link.icon.refresh_user_stats
+                        if premium_access
+                            .ui.header
+                                i.shield.icon
+                                |premium access account for 
+                                |#{premium_access_price}pts
+                        // +friend_button
+                        // +subscribe_button
+                        .ui.hidden.divider
+                        if is_current_user
+                            a.ui.basic.icon.big.button.fly_up(href="/user/#{user_from_username_param.username}/edit" title='profile settings')
+                                i.cog.large.icon
+                        if is_current_user
+                            .ui.basic.icon.big.button.logout.fly_down(title='log out')
+                                i.sign.out.alternate.large.icon
+                        // .ui.hidden.divider
+                        .ui.large.basic.label
+                            strong
+                                |#{current_user.points}
+                            small
+                                |current pts
+                                span(title='rank') (##{current_user.point_rank})
+                        .ui.large.basic.label
+                            strong
+                                |#{current_user.total_received}
+                            small
+                                |received
+                                // span(title='rank') (##{current_user.total_earned_credit_rank})
+                        .ui.large.basic.label
+                            strong
+                                |#{current_user.total_sent}
+                            small
+                                |sent
+                                // span(title='rank') (##{current_user.total_bought_credit_rank})
+                        .ui.large.basic.label
+                            strong
+                                |#{current_user.total_sent_hour}
+                            small
+                                |sent last hour
+                                // span(title='rank') (##{current_user.total_bought_credit_rank})
+                        .ui.large.basic.label
+                            strong
+                                |#{current_user.total_sent_day}
+                            small
+                                |sent last day
+                        .ui.large.basic.label
+                            strong
+                                |#{current_user.total_received_day}
+                            small
+                                |received last day
+                                // span(title='rank') (##{current_user.total_bought_credit_rank})
+                        .ui.large.basic.label
+                            strong 
+                                |#{received_rank}
+                            small
+                                |received rank
+                        .ui.large.basic.label
+                            strong 
+                                |#{sent_rank}
+                            small
+                                |sent rank
+                        .ui.large.basic.label
+                            strong 
+                                |#{profile_views}
+                            small
+                                |profile views
+                    .thirteen.wide.column
+                        .ui.stackable.borderless.menu.rounded.hscroll
+                            a.item(href="/user/#{current_user.username}/" class="{{isActiveRoute 'user_dashboard'}}" )
+                                +i name='dashboard' cl='ui avatar image'
+                                |dashboard
+                            a.item(href="/user/#{current_user.username}/sent" class="{{isActiveRoute 'user_sent'}}" )
+                                +i name='sent' cl='ui avatar image'
+                                |sent 
+                            a.item(href="/user/#{current_user.username}/received" class="{{isActiveRoute 'user_received'}}" )
+                                +i name='donate' cl='ui avatar image'
+                                |received 
+                            a.item(href="/user/#{current_user.username}/topups" class="{{isActiveRoute 'user_topups'}}" )
+                                +i name='donate' cl='ui avatar image'
+                                |topups 
+                            a.item(href="/user/#{current_user.username}/subscriptions" class="{{isActiveRoute 'user_subscriptions'}}" )
+                                +i name='refresh' cl='ui avatar image'
+                                |subscriptions 
+                            a.item(href="/user/#{current_user.username}/posts" class="{{isActiveRoute 'user_posts'}}" )
+                                +i name='blog' cl='ui avatar image'
+                                |posts 
+                            a.item(href="/user/#{current_user.username}/orders" class="{{isActiveRoute 'user_orders'}}" )
+                                +i name='order-history' cl='ui avatar image'
+                                |orders 
+                        // .spacer
+                        +yield
+    
+            // if in_role 'admin'
+            //     +admin_footer
+
+
+
+
+template(name='user_dashboard')
+    with current_user    
+        .ui.stackable.three.column.grid
+            // if is_current_user
+            .column
+                .ui.segment 
+                    .ui.header 
+                        +i name='activity'
+                        |activity
+                    .ui.list 
+                        .item #{profile_views} profile views
+                        .item #{profile_viewed_usernames.length} individuals
+                    .ui.small.grey.inline.header 
+                        |viewers
+                    each profile_viewed_usernames
+                        a.basic.label(href="/u/#{this}") #{this}
+                        
+            .column
+                .ui.segment 
+                    .ui.header 
+                        +i name='groups'
+                        |friends
+                    .ui.large.list
+                        each user_friends
+                            a.item(href="/u/#{username}")
+            .column
+                .ui.segment
+                    .ui.header 
+                        +i name='sent'
+                        |sent
+            .column
+                .ui.header 
+                    +i name='inbox'
+                    |mail
+                .ui.link.list
+                    each messages
+                        a.item(href="/message/#{_id}/") #{body}
+            .column
+                +user_posts_small
+            .column.scrollin
+                +user_topups
+            .column.scrollin
+                +user_received
+            .column.scrollin
+                +user_sent
+              
+              
+              
+template(name='user_posts_small')              
+    .ui.header 
+        i.blog.icon
+        |posts
+    .ui.link.list
+        a.item(href="/post/#{_id}") #{title}
+                
+       
+template(name='user_topups')
+    .ui.inline.header 
+        +i name='donate'
+        |topups
+    .ui.button.topup
+        |topup
+    .ui.selection.animated.list.smallscroll
+        each topups
+            a.item(href="/topup/#{_id}") #{amount}p #{when}
+       
+       
+       
+       
+template(name='user_subscriptions')
+    .ui.inline.header 
+        +i name='refresh'
+        |subscriptions
+    .ui.header 
+        |subscribed to
+    .ui.large.link.selection.animated.list
+        each subscribed_to
+            a.item(href="/user/#{username}") #{username}
+    .ui.header 
+        |subscribed by
+    .ui.large.link.selection.animated.list
+        each subscribed_by
+            a.item(href="/user/#{username}") #{username}
+       
+                
+                
+                
+template(name='user_received')
+    .ui.inline.header 
+        +i name='internal'
+        |#{received_transfers.count} received 
+        small (#{current_user.total_received}p total)
+    each received_tags
+        +profile_picker
+        // a.ui.basic.big.label.flat_tag.zoomer #{title}
+            // small #{count}
+    .ui.hidden.divider
+    .ui.four.link.doubling.cards
+        each received_transfers
+            a.ui.card(href="/transfer/#{_id}")
+                if image_id
+                    // +image_view key='image_id' label='image' direct=true
+                    img.ui.image(src="{{c.url image_id }}")
+                .content
+                    .ui.inline.header
+                        if _author.image_id
+                            img.ui.avatar.image(src="{{c.url _author.image_id height=200 width=200 gravity='face' crop='fill'}}")
+                        |#{_author_username}
+                        strong #{amount}pt
+                    each tags
+                        .ui.basic.large.label #{this}
+                    small #{when}
+                    // |!{description}
+                    // if in_dev
+                    //     +print_this
+        
+        
+        
+        
+template(name='profile_picker')
+    a.ui.large.link.image.basic.label.pick_tag.zoomer(title=count)
+        with ref_doc
+            // if image_url
+            //     +image_link_view key='image_url' direct=true
+            if image_id
+                +image_view key='image_id' direct=true
+        // else
+        |#{title} 
+        // 
+
+        
+        
+template(name='user_sent')  
+    .ui.inline.header 
+        // i.send.icon
+        +i name='sent'
+        |#{sent_items.count}
+        |sent
+        small (#{current_user.total_sent}p total)
+    // .ui.basic.label #{total_sent_amount}p total sent
+    // .ui.basic.label(title='sent count') #{sent_count} gifts sent
+    // .ui.basic.label(title='rank') ##{global_sent_count_rank} gift sent rank
+        
+    i.tags.icon(title='credit tags')
+    each sent_tags
+        +profile_picker
+        // .ui.basic.big.label #{title}
+            // small #{count}
+        
+    .scrolling.ui.four.doubling.cards
+        each sent_items
+            a.ui.card(href="/transfer/#{_id}") #{title}
+                if image_id
+                    +image_view key='image_id' label='image' direct=true
+                .content
+                    a.ui.inline.header(href="/transfer/#{_id}")
+                        strong #{amount}pt
+                        | to 
+                        if target.image_id
+                            img.ui.avatar.image(src="{{c.url target.image_id height=200 width=200 gravity='face' crop='fill'}}")
+                        |#{target_username}
+                    small #{when}
+                    // |!{description}
+                    each tags
+                        .ui.basic.label #{this}
+                    // if in_dev 
+                    //     +print_this
+                                
