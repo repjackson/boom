@@ -53,11 +53,25 @@ template(name='layout')
 
 template(name='home')
     .ui.header home
+    +join
 
 template(name='print_this')
     i.circular.large.code.link.icon.print_this
 template(name='remove_button')
     i.circular.large.remove.link.icon.print_this
+    
+    
+template(name='join')
+    .ui.basic.center.aligned.segment
+        .ui.center.aligned.header 
+            |Memberships
+        .ui.five.stackable.cards
+            .ui.card
+                .ui.header basic
+            .ui.card
+                .ui.header plus
+            .ui.card
+                .ui.header enterprise
     
     
 template(name='not_found')
