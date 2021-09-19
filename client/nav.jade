@@ -18,13 +18,13 @@ template(name='nav')
             a.mobile.hidden.item(href="/library")
                 i.book.icon
                 |Library
-            a.mobile.hidden.item(href="/reports") 
+            a.mobile.hidden.disabled.item(href="/reports") 
                 i.list.icon
                 |Reports
             a.mobile.hidden.item(href="/store")
                 i.shopping.cart.icon
                 |Store
-            a.mobile.hidden.item(href="/studio") 
+            a.mobile.hidden.disabled.item(href="/studio") 
                 i.paint.brush.icon
                 |Studio
             // .input.item
@@ -152,7 +152,7 @@ template(name='leftbar_nav_item')
 template(name='right_sidebar')
     // .ui.right.wide.sidebar.rightbar.filled
     // .ui.right.sidebar.vertical.menu.rightbar(style="background-color:#062639;")
-    .ui.right.sidebar.vertical.blue.inverted.small.menu.rightbar
+    .ui.right.sidebar.vertical.blue.inverted.menu.rightbar
         with currentUser
             a.ui.item.toggle_rightbar.no_blink(href="/user/#{username}" class="{{isActiveRoute 'user_layout'}}")
                 img.ui.avatar.image(src="{{c.url image_id height=200 width=200 gravity='face' crop='fill'}}")
@@ -171,7 +171,7 @@ template(name='right_sidebar')
                 i.marker.icon
                 |Language and Address
             .item 
-                i.private.icon
+                i.refresh.icon
                 |Change Password
             .item 
                 i.line.chart.icon
