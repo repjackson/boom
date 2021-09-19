@@ -11,40 +11,40 @@ if Meteor.isClient
 
     Template.nav.onRendered ->
         Meteor.setTimeout ->
-            $('.menu .item')
-                .popup()
+            # $('.menu .item')
+            #     .popup()
             $('.ui.left.sidebar')
                 .sidebar({
-                    context: $('.bottom.segment')
+                    context: $('.bottom')
                     transition:'push'
                     mobileTransition:'push'
                     exclusive:true
                     duration:250
-                    scrollLock:true
+                    scrollLock:false
                 })
                 .sidebar('attach events', '.toggle_leftbar')
         , 2000
         Meteor.setTimeout ->
             $('.ui.rightbar')
                 .sidebar({
-                    context: $('.bottom.segment')
+                    context: $('.bottom')
                     transition:'push'
                     mobileTransition:'push'
                     exclusive:true
                     duration:250
-                    scrollLock:true
+                    scrollLock:false
                 })
                 .sidebar('attach events', '.toggle_rightbar')
         , 2000
         Meteor.setTimeout ->
             $('.ui.topbar.sidebar')
                 .sidebar({
-                    context: $('.bottom.segment')
+                    context: $('.bottom')
                     transition:'overlay'
                     mobileTransition:'overlay'
                     exclusive:true
                     duration:250
-                    scrollLock:true
+                    scrollLock:false
                 })
                 .sidebar('attach events', '.toggle_topbar')
         , 2000

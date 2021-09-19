@@ -64,8 +64,8 @@ template(name='nav')
                         |&nbsp;
                     a.item(href="/user/#{currentUser.username}/points" class="{{isActiveRoute 'user_points'}}")
                         strong {{int currentUser.points}}p
-                    a.icon.item.toggle_rightbar.no_blink
-                       i.bars.large.icon 
+            a.icon.item.toggle_rightbar.no_blink
+               i.bars.large.icon 
 
             unless currentUser
                 if subs_ready
