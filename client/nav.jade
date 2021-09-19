@@ -4,6 +4,8 @@ template(name='nav')
             .item 
                 +status
         if connected
+            a.icon.item.toggle_leftbar.no_blink
+               i.bars.large.icon 
             unless subs_ready
                 .icon.item
                     i.big.loading.grey.yin.yang.icon
@@ -25,14 +27,10 @@ template(name='nav')
             a.item(href="/studio") 
                 i.paint.brush.icon
                 |Studio
-            
-            a.icon.item.toggle_leftbar.no_blink
-               i.bars.large.icon 
-            
-            .input.item
-                .ui.icon.transparent.input
-                    i.search.icon
-                    input(type='text' placeholder='search')
+            // .input.item
+            //     .ui.icon.transparent.input
+            //         i.search.icon
+            //         input(type='text' placeholder='search')
             // .right.menu
             //     a.item.log_out(title='sign out')
             //         i.sign.out.icon
