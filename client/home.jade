@@ -36,19 +36,19 @@ head
 template(name='layout')
     // img.ui.fluid.image.checkin_banner(src="{{c.url 'frontrange' width=1000 height=1000 crop='crop'}}")
     +nav
-    // .ui.bottom.attached.pushable.segment.scroling
-    //     // +left_sidebar
-    //     // +right_sidebar
-    //     // +topbar
-    //     // +cartbar
-    //     // +walletbar
-    //     // +secnav
-    //     if logging_in
-    //         .ui.center.aligned.basic.segment
-    //             i.massive.loading.yin.yang.grey.icon
-    // //     else
-    // // .sixteen.wide.center.aligned.column
-    +yield
+    .ui.bottom.attached.pushable.segment.scroling
+        +left_sidebar
+        +right_sidebar
+        // +topbar
+        // +cartbar
+        // +walletbar
+        // +secnav
+        if logging_in
+            .ui.center.aligned.basic.segment
+                i.massive.loading.book.grey.icon
+        else
+            +yield
+    // .sixteen.wide.center.aligned.column
 
 
 template(name='home')
@@ -67,11 +67,25 @@ template(name='join')
             |Memberships
         .ui.five.stackable.cards
             .ui.card
-                .ui.header basic
+                .content
+                    .ui.header Starter
+                    .ui.header free
             .ui.card
-                .ui.header plus
+                .content
+                    .ui.header Basic
+                    .ui.header $15/month
             .ui.card
-                .ui.header enterprise
+                .content
+                    .ui.header Power
+                    .ui.header $20/month
+            .ui.card
+                .content
+                    .ui.header PowerPlus
+                    .ui.header $25/month
+            .ui.card
+                .content
+                    .ui.header Ultimate
+                    .ui.header $35/month
     
     
 template(name='not_found')

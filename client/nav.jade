@@ -10,21 +10,21 @@ template(name='nav')
                 .icon.item
                     i.big.loading.grey.yin.yang.icon
             a.header.item.zoomer(href='/' class="{{isActiveRoute 'home'}}" title='home')
-                i.home.icon
-                |Boom Learning
-            a.item(href="/classes")
+                i.book.large.icon
+                span.mobile.hidden Boom Learning
+            a.mobile.hidden.item(href="/classes")
                 i.users.icon
                 |Classes
-            a.item(href="/library")
+            a.mobile.hidden.item(href="/library")
                 i.book.icon
                 |Library
-            a.item(href="/reports") 
+            a.mobile.hidden.item(href="/reports") 
                 i.list.icon
                 |Reports
-            a.item(href="/store")
+            a.mobile.hidden.item(href="/store")
                 i.shopping.cart.icon
                 |Store
-            a.item(href="/studio") 
+            a.mobile.hidden.item(href="/studio") 
                 i.paint.brush.icon
                 |Studio
             // .input.item
