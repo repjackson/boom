@@ -1,6 +1,6 @@
 template(name='questions')  
     .ui.padded.stackable.grid
-        .four.wide.column
+        .three.wide.column
             .ui.inline.header 
                 +i name='what'
                 |questions
@@ -23,9 +23,13 @@ template(name='questions')
                     i.clone.icon
                     |featured bundles
                 .item featured questions
-        .twelve.wide.column
-            each question_docs 
-                .ui.header #{title}
+        .thirteen.wide.column
+            .ui.doubling.centered.cards
+                each question_docs 
+                    a.ui.card(href="/question/#{_id}")
+                        img.ui.image(src="{{c.url image_id height=200 width=200 gravity='face' crop='fill'}}")
+                        .content
+                            .ui.header #{title}
             
             
 
@@ -34,7 +38,7 @@ template(name='question_view')
         .ui.stackable.padded.grid
             .row
                 .five.wide.column
-                    a.ui.basic.large.button.fly_left(href="/library")
+                    a.ui.basic.large.button.fly_left(href="/questions")
                         i.chevron.left.icon
                         +i name='question' cl='ui avatar image'
                         |question
@@ -89,7 +93,6 @@ template(name='question_view')
                     // +product_orders
                     
                     .ui.header #{views} views
-                    .ui.header #{calories}cals
                     // +doc_images
                     // +reviews
                     if youtube_id
@@ -124,9 +127,9 @@ template(name='question_edit')
                     // +image_link_edit key='image_url' label='image link' icon='image'
                 .five.wide.column
                     +image_edit key='image_id' label='image' icon='image'
-                    // +number_edit key='calories' label='calories' icon='cheese' direct=true
                     div
                     +number_edit key='price_dollars' label='price ($)' icon='money'
+                    +number_edit key='price_points' label='price (points)' icon='coins'
                     +html_edit key='body' label='body' direct=true
                     .ui.red.large.icon.button.delete_question(title='delete')
                         i.remove.icon   
