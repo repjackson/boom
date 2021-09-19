@@ -52,8 +52,10 @@ template(name='layout')
 
 
 template(name='home')
-    .ui.header home
-    +join
+    .ui.stackable.padded.grid 
+        .sixteen.wide.column
+            .ui.header home
+            +join
 
 template(name='print_this')
     i.circular.large.code.link.icon.print_this

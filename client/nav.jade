@@ -4,14 +4,14 @@ template(name='nav')
             .item 
                 +status
         if connected
-            a.icon.item.toggle_leftbar.no_blink
-               i.bars.large.icon 
+            // a.icon.item.toggle_leftbar.no_blink
+            //   i.bars.large.icon 
             unless subs_ready
                 .icon.item
                     i.big.loading.grey.yin.yang.icon
             a.header.item.zoomer(href='/' class="{{isActiveRoute 'home'}}" title='home')
                 i.book.large.icon
-                span.mobile.hidden Boom Learning
+                span.mobile.hidden Boom
             a.mobile.hidden.item(href="/groups")
                 i.users.icon
                 |Classes
@@ -56,23 +56,22 @@ template(name='nav')
                         i.large.yin.yang.loading.icon
                 else
                     a.item(href="/user/#{currentUser.username}" class="{{isActiveRoute 'profile'}}")
+                        strong {{int currentUser.points}}p
+                    a.item(href="/user/#{currentUser.username}/points" class="{{isActiveRoute 'user_points'}}")
                         if currentUser.image_id
                             img.ui.avatar.image(src="{{c.url currentUser.image_id width=200 height=200 gravity='face'}}")
                         else
                             i.user.icon
-                        strong #{currentUser.name}
+                        strong #{currentUser.username}
                         |&nbsp;
-                    a.item(href="/user/#{currentUser.username}/points" class="{{isActiveRoute 'user_points'}}")
-                        strong {{int currentUser.points}}p
-            a.icon.item.toggle_rightbar.no_blink
-               i.bars.large.icon 
-
             unless currentUser
                 if subs_ready
                     a.icon.item(href='/login' title='login') 
                         i.sign.in.large.icon
                 else 
                     i.yin.yang.loading.icon
+            // a.icon.item.toggle_rightbar.no_blink
+            //   i.bars.large.icon 
 
 
 template(name='topbar')

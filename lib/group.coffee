@@ -1,4 +1,49 @@
 if Meteor.isClient
+    Template.groups.onCreated ->
+        @autorun => Meteor.subscribe 'model_docs', 'group'
+    Template.groups.onRendered ->
+        Meteor.setTimeout ->
+            # $('.dropdown').dropdown(
+            #     on:'click'
+            # )
+            $('.ui.dropdown').dropdown(
+                clearable:true
+                action: 'activate'
+                onChange: (text,value,$selectedItem)->
+                    )
+        , 1000
+
+    Template.groups.helpers
+        my_groups: ->
+            Docs.find
+                model:'group'
+                target_username: Meteor.user().username
+        groups: ->
+            Docs.find
+                model:'group'
+
+
+
+    Template.groups.events
+        'click .add_group': ->
+            new_id = 
+                Docs.insert 
+                    model:'group'
+                    _timestamp:Date.now()
+                    _author_id:Meteor.userId()
+                    
+            Router.go "/group/#{new_id}/edit"
+            
+            
+            
+        'click .submit_message': ->
+            message = $('.message').val()
+            console.log message
+            Docs.insert
+                model:'groups'
+                message:message
+                
+if Meteor.isClient
     Router.route '/groups', (->
         @render 'groups'
         ), name:'groups
@@ -148,7 +193,7 @@ if Meteor.isServer
         )->
         # group = Docs.findOne group_id
         match = {model:'group'}
-        # match.app = 'bc'
+        match.app = 'boom'
         if section 
             match.section = section
         if title_filter and title_filter.length > 1
@@ -169,12 +214,6 @@ if Meteor.isServer
         shop = Docs.findOne shop_id
         Docs.find
             _id: shop.group_id
-    Meteor.publish 'shop_things', (shop_id)->
-        shop = Docs.findOne shop_id
-        Docs.find
-            model:'thing'
-            shop_id: shop_id
-
     # Meteor.methods
         # shop_shop: (shop_id)->
         #     shop = Docs.findOne shop_id
@@ -304,4 +343,4 @@ if Meteor.isClient
 #                     purchased:true
 #                     purchase_timestamp: Date.now()
 #             console.log 'marked complete'
-#             Meteor.call 'calc_user_points', @_author_id, ->
+#             Meteor.call 'calc_user_points', @_author_id, ->                
