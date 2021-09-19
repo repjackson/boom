@@ -1,0 +1,168 @@
+template(name='library')     
+    .ui.stackable.padded.grid
+        .four.wide.column
+            // if deck_docs.count
+            .ui.header 
+                i.book.icon
+                |Library
+            .ui.big.inline.header 
+                // i.deck.icon
+                +i name='university'
+                |#{deck_docs.count} items
+            // if currentUser 
+            .ui.circular.basic.icon.button.add_deck
+                i.plus.icon
+
+            
+            // +search_input model='deck' field='title'
+            // +session_set key='deck_view_filter' value='appetizers' icon='nachos'
+            // +session_set key='deck_view_filter' value='soup' icon='soup-plate'
+            // +session_set key='deck_view_filter' value='salad' icon='salad'
+            // +session_set key='deck_view_filter' value='sandwiches' icon='sandwich'
+            // +session_set key='deck_view_filter' value='pizza' icon='pizza'
+            // +session_set key='deck_view_filter' value='burger' icon='hamburger'
+            // +session_set key='deck_view_filter' value='dessert' icon='dessert'
+            // // +session_set key='deck_view_filter' value='' icon='cancel'
+            // +session_set key='deck_sort' value='views' icon='eye'
+            // +session_set key='deck_sort' value='price_dollars' icon='money'
+            // +session_set key='deck_sort_direction' value=1 icon='chevron up'
+            // +session_set key='deck_sort_direction' value=-1 icon='chevron down'
+            .ui.hidden.divider
+        .twelve.wide.column
+            .ui.doubling.centered.four.cards.scrolling
+                each deck_docs
+                    +deck_item
+
+
+template(name='deck_item')
+    a.card.fly_right.zoomer(href="/m/deck/#{_id}") 
+        img.ui.image(src="{{c.url image_id width=500 height=500 gravity='face' crop='fill'}}")
+        .content
+            .header #{title}
+            .ui.large.label #{section}
+            .ui.small.inline.header #{calories}cals
+            each tags
+                +flat_tag_avatar
+            span(title='views')
+                |#{views}
+                i.grey.eye.icon
+                // .ui.basic.small.label #{this}
+        .ui.fluid.big.green.button.buy
+            |$#{price_dollars}
+
+template(name='deck_view')
+    with current_doc
+        .ui.stackable.padded.grid
+            .row
+                .five.wide.column
+                    a.ui.basic.large.button.fly_left(href="/deck")
+                        i.chevron.left.icon
+                        +i name='deck' cl='ui avatar image'
+                        |deck
+                    if can_edit
+                        a.ui.icon.basic.button.fly_down(href="/m/deck/#{_id}/edit" title='edit product')
+                            i.pencil.icon
+
+    
+                    // .ui.segment 
+                    //     with post_product
+                    //         a(href="/product/#{_id}")
+                    //             img.ui.rounded.image(src="{{c.url image_id width=400 height=400}}")
+                    //         a.ui.header(href="/product/#{_id}") #{title}
+                    //         // - .ui.header #{cook_tip} cook tip
+                    //         // .ui.header $#{post_total_transaction_amount} 
+                    //         //     small total transaction amount
+                    div
+                    .ui.inline.header 
+                        i.clock.grey.icon
+                        strong #{when}
+                        small by
+                        strong #{_author_username}
+                    +i name='tags' cl='ui avatar image'
+                    each tags
+                        +flat_tag_picker
+                    div
+                    +voting_full
+                    +comments
+                .six.wide.column
+                    h1.ui.center.aligned.big.inline.header #{title}
+                    a(href="http://www.google.com/search?q=#{title}" target='_blank' title='search')
+                        i.grey.search.icon
+                    .ui.header 
+                        i.business.icon
+                        |#{company}
+                    // if image_url
+                    //     img.ui.inline.image(src=image_url)
+                    if image_id
+                        img.ui.inline.rounded.image(src="{{c.url image_id width=500 height=500 gravity='face' crop='fill'}}")
+                    if in_dev
+                        +print_this
+                .five.wide.column
+                    .ui.big.fluid.green.button.order_deck 
+                        i.cart.big.icon
+                        .ui.inline.inverted.header
+                            |buy for $#{price_dollars}
+                    .ui.header section: #{section}
+                    // .ui.header also by #{company}
+                    .ui.header ratings
+                    +rating icon='pizza slice' value='3'
+                    +product_orders
+                    
+                    .ui.header #{views} views
+                    .ui.header #{calories}cals
+                    +doc_images
+                    +reviews
+                    if youtube_id
+                        +youtube_view key='youtube_id' value='youtube id' icon='youtube'
+
+// template(name='product_orders')
+//     .ui.inline.header 
+//         +i name='order-history'
+//         |orders
+//     if currentUser
+//         i.plus.link.icon.add_order
+        
+//     .ui.large.selection.list
+//         each order_docs
+//             .item #{when} #{_author_username}
+                    
+                    
+template(name='rating')
+    .ui.yellow.massive.rating(data-icon=icon data-rating=value)
+
+template(name='deck_edit')
+    with current_doc
+        .ui.stackable.padded.grid
+            .row
+                .five.wide.column
+                    .ui.inline.header
+                        i.pencil.icon
+                        | #{title}
+                    a.ui.fluid.icon.green.button.fly_up(href="/m/deck/#{_id}/" title='save deck')
+                        i.checkmark.big.icon
+                    // a.ui.big.circular.icon.green.button.save_this(title='save')
+                    +text_edit key='title' label='title' direct=true
+                    +array_edit key='tags' label='tags' icon='tags' direct=true
+                    +text_edit key='model' label='model' icon='database' direct=true
+                    // +image_link_edit key='image_url' label='image link' icon='image'
+                .five.wide.column
+                    +image_edit key='image_id' label='image' icon='image'
+                    +number_edit key='calories' label='calories' icon='cheese' direct=true
+                    div
+                    +number_edit key='price_dollars' label='price ($)' icon='money'
+                    +html_edit key='body' label='body' direct=true
+                    .ui.red.large.icon.button.delete_deck(title='delete')
+                        i.remove.icon   
+                        // | delete
+                .six.wide.column
+                    +link_edit key='link' label='link' icon='link'
+                    +text_edit key='section' label='menu section' icon='beer-recipe'
+                    +key_value_set key='section' value='appetizers' icon='nachos'
+                    +key_value_set key='section' value='soup' icon='soup-plate'
+                    +key_value_set key='section' value='salad' icon='salad'
+                    +key_value_set key='section' value='sandwiches' icon='sandwich'
+                    +key_value_set key='section' value='pizza' icon='pizza'
+                    +key_value_set key='section' value='burger' icon='hamburger'
+                    +key_value_set key='section' value='dessert' icon='dessert'
+                    +youtube_edit key='youtube_id' value='youtube id' icon='youtube'
+                    +boolean_edit key='special' valeu='special' icon='star' direct=true

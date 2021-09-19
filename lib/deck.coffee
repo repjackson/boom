@@ -4,7 +4,7 @@ if Meteor.isClient
         ), name:'decks
         '
 
-    Template.decks.onCreated ->
+    Template.library.onCreated ->
         Session.setDefault('deck_sort','views')
         @autorun -> Meteor.subscribe 'deck',
             Session.get('deck_title_filter')
@@ -15,7 +15,7 @@ if Meteor.isClient
         # @autorun -> Meteor.subscribe 'model_docs', 'deck', 20
         # @autorun -> Meteor.subscribe 'model_docs', 'thing', 100
 
-    Template.decks.helpers
+    Template.library.helpers
         deck_docs: ->
             match = {model:'deck'}
             # if Session.get('deck_status_filter')
@@ -28,8 +28,9 @@ if Meteor.isClient
                 sort: 
                     "#{Session.get('deck_sort')}":Session.get('deck_sort_direction')
 
-    Template.decks.events
+    Template.library.events
         'click .add_deck': ->
+            console.log 'hi'
             new_id = 
                 Docs.insert 
                     model:'deck'
@@ -40,7 +41,6 @@ if Meteor.isClient
             Router.go "/deck/#{new_id}/edit"
             
 
-if Meteor.isClient
     Router.route '/deck/:doc_id', (->
         @layout 'layout'
         @render 'deck_view'
