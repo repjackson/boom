@@ -57,7 +57,7 @@ template(name='nav')
                 else
                     a.item(href="/user/#{currentUser.username}" class="{{isActiveRoute 'profile'}}")
                         strong {{int currentUser.points}}p
-                    a.item(href="/user/#{currentUser.username}/points" class="{{isActiveRoute 'user_points'}}")
+                    a.item(href="/user/#{currentUser.username}" class="{{isActiveRoute 'profile'}}")
                         if currentUser.image_id
                             img.ui.avatar.image(src="{{c.url currentUser.image_id width=200 height=200 gravity='face'}}")
                         else

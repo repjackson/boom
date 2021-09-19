@@ -82,28 +82,28 @@ template(name='user_layout')
                             small
                                 |profile views
                     .thirteen.wide.column
-                        .ui.stackable.borderless.menu.rounded.hscroll
-                            a.item(href="/user/#{current_user.username}/" class="{{isActiveRoute 'user_dashboard'}}" )
-                                +i name='dashboard' cl='ui avatar image'
-                                |dashboard
-                            a.item(href="/user/#{current_user.username}/sent" class="{{isActiveRoute 'user_sent'}}" )
-                                +i name='sent' cl='ui avatar image'
-                                |sent 
-                            a.item(href="/user/#{current_user.username}/received" class="{{isActiveRoute 'user_received'}}" )
-                                +i name='donate' cl='ui avatar image'
-                                |received 
-                            a.item(href="/user/#{current_user.username}/topups" class="{{isActiveRoute 'user_topups'}}" )
-                                +i name='donate' cl='ui avatar image'
-                                |topups 
-                            a.item(href="/user/#{current_user.username}/subscriptions" class="{{isActiveRoute 'user_subscriptions'}}" )
-                                +i name='refresh' cl='ui avatar image'
-                                |subscriptions 
-                            a.item(href="/user/#{current_user.username}/posts" class="{{isActiveRoute 'user_posts'}}" )
-                                +i name='blog' cl='ui avatar image'
-                                |posts 
-                            a.item(href="/user/#{current_user.username}/orders" class="{{isActiveRoute 'user_orders'}}" )
-                                +i name='order-history' cl='ui avatar image'
-                                |orders 
+                        // .ui.stackable.borderless.menu.rounded.hscroll
+                        a.ui.compact.basic.button(href="/user/#{current_user.username}/" class="{{isActiveRoute 'user_dashboard'}}" )
+                            +i name='dashboard' cl='ui avatar image'
+                            |dashboard
+                        a.ui.compact.basic.button(href="/user/#{current_user.username}/sent" class="{{isActiveRoute 'user_sent'}}" )
+                            +i name='sent' cl='ui avatar image'
+                            |sent 
+                        a.ui.compact.basic.button(href="/user/#{current_user.username}/received" class="{{isActiveRoute 'user_received'}}" )
+                            +i name='donate' cl='ui avatar image'
+                            |received 
+                        a.ui.compact.basic.button(href="/user/#{current_user.username}/topups" class="{{isActiveRoute 'user_topups'}}" )
+                            +i name='donate' cl='ui avatar image'
+                            |topups 
+                        a.ui.compact.basic.button(href="/user/#{current_user.username}/subscriptions" class="{{isActiveRoute 'user_subscriptions'}}" )
+                            +i name='refresh' cl='ui avatar image'
+                            |subscriptions 
+                        a.ui.compact.basic.button(href="/user/#{current_user.username}/posts" class="{{isActiveRoute 'user_posts'}}" )
+                            +i name='blog' cl='ui avatar image'
+                            |posts 
+                        a.ui.compact.basic.button(href="/user/#{current_user.username}/orders" class="{{isActiveRoute 'user_orders'}}" )
+                            +i name='order-history' cl='ui avatar image'
+                            |orders 
                         // .spacer
                         +yield
     
