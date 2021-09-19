@@ -106,7 +106,7 @@ template(name='walletbar')
         +user_points
         
 template(name='left_sidebar')
-    .ui.left.sidebar.inverted.vertical.menu
+    .ui.left.sidebar.inverted.blue.vertical.menu
         // a.item.toggle_leftbar.no_blink(href='/' class="{{isActivePath '/'}}" title='home')
         //     img.ui.image(src="https://rosettahall.com/wp-content/uploads/2020/12/Rosetta-White-Transparent-Art-Board.png")
         // .search.item(title='search')
@@ -152,32 +152,63 @@ template(name='leftbar_nav_item')
 template(name='right_sidebar')
     // .ui.right.wide.sidebar.rightbar.filled
     // .ui.right.sidebar.vertical.menu.rightbar(style="background-color:#062639;")
-    .ui.right.sidebar.vertical.inverted.small.menu.rightbar
+    .ui.right.sidebar.vertical.blue.inverted.small.menu.rightbar
         with currentUser
             a.ui.item.toggle_rightbar.no_blink(href="/user/#{username}" class="{{isActiveRoute 'user_layout'}}")
                 img.ui.avatar.image(src="{{c.url image_id height=200 width=200 gravity='face' crop='fill'}}")
                 |#{name}
                 small (#{currentUser.username})
-            +rightbar_nav_item label='dashboard' icon='dashboard' route='dashboard'
-            +rightbar_nav_item label='bookmarks' icon='bookmark' route='bookmarks'
-            // +rightbar_nav_item label='checkins' icon='satisfaction' route='checkins'
-            +rightbar_nav_item label='posts' icon='blog' route='posts'
-            +rightbar_nav_item label='topups' icon='donation' route='topups'
-            +rightbar_nav_item label='work' icon='services' route='work'
-            +rightbar_nav_item label='tasks' icon='tasks' route='tasks'
-            +rightbar_nav_item label='chat' icon='chat' route='chat'
-            +rightbar_nav_item label='badges' icon='prize' route='badges'
-            +rightbar_nav_item label='timeclock' icon='clock' route='timeclock'
-            +rightbar_nav_item label='schedule' icon='calendar' route='schedule'
-            +rightbar_nav_item label='payroll' icon='money' route='payroll'
-            +rightbar_nav_item label='orders' icon='order-history' route='orders'
-            +rightbar_nav_item label='points' icon='coins' route='points'
-            +rightbar_nav_item label='groups' icon='campfire' route='groups'
-            +rightbar_nav_item label='checkins' icon='checked-2' route='checkins'
-            +rightbar_nav_item label='sent' icon='sent' route='sent'
-            +rightbar_nav_item label='topups' icon='donation' route='topups'
-            +rightbar_nav_item label='friends' icon='groups' route='topups'
-            +rightbar_nav_item label='friends' icon='omoneyrders' route='orders'
+            .item 
+                i.home.icon
+                |About Boom Cards
+            .item 
+                i.cog.icon
+                |My Settings
+            .item 
+                i.card.icon
+                |Membership
+            .item 
+                i.marker.icon
+                |Language and Address
+            .item 
+                i.private.icon
+                |Change Password
+            .item 
+                i.line.chart.icon
+                |Grades and Notifications
+            .item 
+                i.chat.icon
+                |Social (Following)
+            .header.inverted.blue.item 
+                i.chat.icon
+                |Community
+            .header.inverted.blue.item 
+                i.facebook.icon
+                |Authoring Group
+            .header.inverted.blue.item 
+                i.facebook.icon
+                |Teaching Group
+            
+            // +rightbar_nav_item label='dashboard' icon='dashboard' route='dashboard'
+            // +rightbar_nav_item label='bookmarks' icon='bookmark' route='bookmarks'
+            // // +rightbar_nav_item label='checkins' icon='satisfaction' route='checkins'
+            // +rightbar_nav_item label='posts' icon='blog' route='posts'
+            // +rightbar_nav_item label='topups' icon='donation' route='topups'
+            // +rightbar_nav_item label='work' icon='services' route='work'
+            // +rightbar_nav_item label='tasks' icon='tasks' route='tasks'
+            // +rightbar_nav_item label='chat' icon='chat' route='chat'
+            // +rightbar_nav_item label='badges' icon='prize' route='badges'
+            // +rightbar_nav_item label='timeclock' icon='clock' route='timeclock'
+            // +rightbar_nav_item label='schedule' icon='calendar' route='schedule'
+            // +rightbar_nav_item label='payroll' icon='money' route='payroll'
+            // +rightbar_nav_item label='orders' icon='order-history' route='orders'
+            // +rightbar_nav_item label='points' icon='coins' route='points'
+            // +rightbar_nav_item label='groups' icon='campfire' route='groups'
+            // +rightbar_nav_item label='checkins' icon='checked-2' route='checkins'
+            // +rightbar_nav_item label='sent' icon='sent' route='sent'
+            // +rightbar_nav_item label='topups' icon='donation' route='topups'
+            // +rightbar_nav_item label='friends' icon='groups' route='topups'
+            // +rightbar_nav_item label='friends' icon='omoneyrders' route='orders'
             a.ui.button.logout.toggle_rightbar
                 if is_logging_out
                     i.refresh.loading.icon

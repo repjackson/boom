@@ -16,8 +16,8 @@ if Meteor.isClient
             $('.ui.left.sidebar')
                 .sidebar({
                     context: $('.bottom.segment')
-                    transition:'overlay'
-                    mobileTransition:'overlay'
+                    transition:'push'
+                    mobileTransition:'push'
                     exclusive:true
                     duration:250
                     scrollLock:true
@@ -28,8 +28,8 @@ if Meteor.isClient
             $('.ui.rightbar')
                 .sidebar({
                     context: $('.bottom.segment')
-                    transition:'overlay'
-                    mobileTransition:'overlay'
+                    transition:'push'
+                    mobileTransition:'push'
                     exclusive:true
                     duration:250
                     scrollLock:true
