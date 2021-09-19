@@ -4,7 +4,7 @@ if Meteor.isClient
         ), name:'questions
         '
 
-    Template.library.onCreated ->
+    Template.questions.onCreated ->
         Session.setDefault('question_sort','views')
         @autorun -> Meteor.subscribe 'question',
             Session.get('question_title_filter')
@@ -15,7 +15,7 @@ if Meteor.isClient
         # @autorun -> Meteor.subscribe 'model_docs', 'question', 20
         # @autorun -> Meteor.subscribe 'model_docs', 'thing', 100
 
-    Template.library.helpers
+    Template.questions.helpers
         question_docs: ->
             match = {model:'question'}
             # if Session.get('question_status_filter')
@@ -28,7 +28,7 @@ if Meteor.isClient
                 sort: 
                     "#{Session.get('question_sort')}":Session.get('question_sort_direction')
 
-    Template.library.events
+    Template.questions.events
         'click .add_question': ->
             console.log 'hi'
             new_id = 

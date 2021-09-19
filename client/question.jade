@@ -1,33 +1,28 @@
 template(name='questions')  
     .ui.padded.stackable.grid
-        .sixteen.wide.column
-            .ui.fluid.four.item.menu
-                .item featured
-                .item authors
-                .item questions
-                .item printies
         .four.wide.column
-            .ui.header 
+            .ui.inline.header 
                 +i name='what'
                 |questions
             .ui.circular.icon.basic.button.add_question
                 i.plus.icon
-            .ui.header
-                i.user.icon
-                |featured authors
-            .ui.header 
-                i.clone.icon
-                |featured questions
-            .ui.header 
-                |Top Premium
-            .ui.header 
-                |Top Referring Authors
-            .ui.header 
-                |Top Free
-            .ui.header 
-                i.clone.icon
-                |featured bundles
-            .ui.header featured questions
+            .ui.list
+                .item
+                    i.user.icon
+                    |featured authors
+                .item 
+                    i.clone.icon
+                    |featured questions
+                .item 
+                    |Top Premium
+                .item 
+                    |Top Referring Authors
+                .item 
+                    |Top Free
+                .item 
+                    i.clone.icon
+                    |featured bundles
+                .item featured questions
         .twelve.wide.column
             each question_docs 
                 .ui.header #{title}
