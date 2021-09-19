@@ -35,32 +35,34 @@ template(name='library')
 
 
 template(name='deck_item')
-    a.card.fly_right.zoomer(href="/m/deck/#{_id}") 
+    a.card.fly_right.zoomer(href="/deck/#{_id}") 
         img.ui.image(src="{{c.url image_id width=500 height=500 gravity='face' crop='fill'}}")
         .content
             .header #{title}
             .ui.large.label #{section}
             .ui.small.inline.header #{calories}cals
             each tags
-                +flat_tag_avatar
+                .ui.label #{this}
+                // +flat_tag_avatar
             span(title='views')
                 |#{views}
                 i.grey.eye.icon
                 // .ui.basic.small.label #{this}
         .ui.fluid.big.green.button.buy
             |$#{price_dollars}
+            |#{price_points}p
 
 template(name='deck_view')
     with current_doc
         .ui.stackable.padded.grid
             .row
                 .five.wide.column
-                    a.ui.basic.large.button.fly_left(href="/deck")
+                    a.ui.basic.large.button.fly_left(href="/library")
                         i.chevron.left.icon
                         +i name='deck' cl='ui avatar image'
                         |deck
                     if can_edit
-                        a.ui.icon.basic.button.fly_down(href="/m/deck/#{_id}/edit" title='edit product')
+                        a.ui.icon.basic.button.fly_down(href="/deck/#{_id}/edit" title='edit product')
                             i.pencil.icon
 
     
@@ -80,9 +82,10 @@ template(name='deck_view')
                         strong #{_author_username}
                     +i name='tags' cl='ui avatar image'
                     each tags
-                        +flat_tag_picker
+                        .ui.label #{this}
+                        // +flat_tag_picker
                     div
-                    +voting_full
+                    // +voting_full
                     +comments
                 .six.wide.column
                     h1.ui.center.aligned.big.inline.header #{title}
@@ -106,12 +109,12 @@ template(name='deck_view')
                     // .ui.header also by #{company}
                     .ui.header ratings
                     +rating icon='pizza slice' value='3'
-                    +product_orders
+                    // +product_orders
                     
                     .ui.header #{views} views
                     .ui.header #{calories}cals
-                    +doc_images
-                    +reviews
+                    // +doc_images
+                    // +reviews
                     if youtube_id
                         +youtube_view key='youtube_id' value='youtube id' icon='youtube'
 
@@ -138,16 +141,16 @@ template(name='deck_edit')
                     .ui.inline.header
                         i.pencil.icon
                         | #{title}
-                    a.ui.fluid.icon.green.button.fly_up(href="/m/deck/#{_id}/" title='save deck')
+                    a.ui.fluid.icon.green.button.fly_up(href="/deck/#{_id}/" title='save deck')
                         i.checkmark.big.icon
                     // a.ui.big.circular.icon.green.button.save_this(title='save')
                     +text_edit key='title' label='title' direct=true
                     +array_edit key='tags' label='tags' icon='tags' direct=true
-                    +text_edit key='model' label='model' icon='database' direct=true
+                    // +text_edit key='model' label='model' icon='database' direct=true
                     // +image_link_edit key='image_url' label='image link' icon='image'
                 .five.wide.column
                     +image_edit key='image_id' label='image' icon='image'
-                    +number_edit key='calories' label='calories' icon='cheese' direct=true
+                    // +number_edit key='calories' label='calories' icon='cheese' direct=true
                     div
                     +number_edit key='price_dollars' label='price ($)' icon='money'
                     +html_edit key='body' label='body' direct=true
@@ -156,13 +159,13 @@ template(name='deck_edit')
                         // | delete
                 .six.wide.column
                     +link_edit key='link' label='link' icon='link'
-                    +text_edit key='section' label='menu section' icon='beer-recipe'
-                    +key_value_set key='section' value='appetizers' icon='nachos'
-                    +key_value_set key='section' value='soup' icon='soup-plate'
-                    +key_value_set key='section' value='salad' icon='salad'
-                    +key_value_set key='section' value='sandwiches' icon='sandwich'
-                    +key_value_set key='section' value='pizza' icon='pizza'
-                    +key_value_set key='section' value='burger' icon='hamburger'
-                    +key_value_set key='section' value='dessert' icon='dessert'
+                    // +text_edit key='section' label='menu section' icon='beer-recipe'
+                    // +key_value_set key='section' value='appetizers' icon='nachos'
+                    // +key_value_set key='section' value='soup' icon='soup-plate'
+                    // +key_value_set key='section' value='salad' icon='salad'
+                    // +key_value_set key='section' value='sandwiches' icon='sandwich'
+                    // +key_value_set key='section' value='pizza' icon='pizza'
+                    // +key_value_set key='section' value='burger' icon='hamburger'
+                    // +key_value_set key='section' value='dessert' icon='dessert'
                     +youtube_edit key='youtube_id' value='youtube id' icon='youtube'
                     +boolean_edit key='special' valeu='special' icon='star' direct=true
