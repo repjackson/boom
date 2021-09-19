@@ -36,7 +36,7 @@ head
 template(name='layout')
     // img.ui.fluid.image.checkin_banner(src="{{c.url 'frontrange' width=1000 height=1000 crop='crop'}}")
     +nav
-    .ui.bottom.attached.pushable.scroling
+    .ui.pushable.scroling
         +left_sidebar
         +right_sidebar
         // +topbar
@@ -54,7 +54,15 @@ template(name='layout')
 template(name='home')
     .ui.stackable.padded.grid 
         .sixteen.wide.column
-            .ui.header home
+            a.ui.big.button(href="/posts")
+                i.blog.icon
+                |posts
+            a.ui.big.button(href="/questions")
+                i.question.icon
+                |questions
+            a.ui.big.button(href="/groups")
+                i.users.icon
+                |groups (classes)
             +join
 
 template(name='print_this')

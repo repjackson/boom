@@ -1,5 +1,5 @@
 template(name='nav')
-    #topnav.ui.fluid.attached.borderless.inverted.blue.menu.topnav.hscroll
+    #topnav.ui.fluid.attached.borderless.inverted.menu.topnav.hscroll
         unless connected
             .item 
                 +status
@@ -24,9 +24,16 @@ template(name='nav')
             a.mobile.hidden.item(href="/store")
                 i.shopping.cart.icon
                 |Store
+            a.mobile.hidden.item(href="/posts")
+                i.blog.icon
             a.mobile.hidden.disabled.item(href="/studio") 
                 i.paint.brush.icon
                 |Studio
+            a.mobile.hidden.disabled.item(href="/users") 
+                i.users.icon
+                |Users
+            a.mobile.hidden.item(href="/about") 
+                i.info.icon
             // .input.item
             //     .ui.icon.transparent.input
             //         i.search.icon
