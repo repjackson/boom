@@ -212,9 +212,15 @@ Template.registerHelper 'in_role', (role)->
 
 
 Template.registerHelper 'can_edit', () ->
-    # if @_author_id is null 
-    #     true
-
+    if Meteor.userId() and @_author_id is Meteor.userId()
+        true
+    else 
+        if @_author_id is null 
+            true
+        else if Meteor.user().roles and 'admin' in Meteor.user().roles
+            true
+        else 
+            false
 Template.registerHelper 'publish_when', () -> moment(@publish_date).fromNow()
 
 
