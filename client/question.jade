@@ -23,7 +23,7 @@ template(name='questions')
                     i.clone.icon
                     |featured bundles
                 .item featured questions
-        .thirteen.wide.column
+        .thirteen.wide.column.scrolling
             .ui.doubling.centered.cards
                 each question_docs 
                     a.ui.card(href="/question/#{_id}")
@@ -33,116 +33,192 @@ template(name='questions')
             
             
 
+
+template(name='question_card_template')
+    a.card.fly_left(href="/question/#{_id}")
+        // .ui.header.goto_question #{title}
+        if image_id 
+            +image_view key='image_id'
+        .content
+            .ui.header #{title}
+            |!{description}
+            each question_choice_docs
+                .ui.big.label(class=color)
+                    |#{title}
+            if points_per_answer
+                .ui.inline.green.header +#{points_per_answer}pts
+
+            span(title='views')
+                i.eye.icon
+                |#{views}
+            span(title='views')
+                i.reply.icon 
+                |#{answer_count}
+            if tags
+                i.grey.tags.icon 
+                each tags
+                    .ui.small.basic.label #{this}
+            // +array_view key='tags' direct=true
+            // div
+            // .ui.icon.large.button.edit_question(title='edit question') 
 template(name='question_view')
     with current_doc
         .ui.stackable.padded.grid
-            .row
-                .five.wide.column
-                    a.ui.basic.large.button.fly_left(href="/questions")
+            .row 
+                .four.wide.column
+                    .ui.big.header #{title}
+                    a.ui.big.basic.button.fly_left(href="/questions")
                         i.chevron.left.icon
-                        +i name='question' cl='ui avatar image'
-                        |question
-                    if can_edit
-                        a.ui.icon.basic.button.fly_down(href="/question/#{_id}/edit" title='edit product')
-                            i.pencil.icon
+                        +i name='what' cl='ui avatar image'
+                        |questions
+                    if can_edit 
+                        a.ui.basic.button(href="/question/#{_id}/edit" title='edit') 
+                            i.pencil.grey.icon
+                            |edit
+                    .ui.header #{points_per_answer} points earned per answer
+                    .ui.header #{total_points_available} total points available
 
-    
-                    // .ui.segment 
-                    //     with post_product
-                    //         a(href="/product/#{_id}")
-                    //             img.ui.rounded.image(src="{{c.url image_id width=400 height=400}}")
-                    //         a.ui.header(href="/product/#{_id}") #{title}
-                    //         // - .ui.header #{cook_tip} cook tip
-                    //         // .ui.header $#{post_total_transaction_amount} 
-                    //         //     small total transaction amount
+                    //- +multi_user_edit key='subscriber_ids' label='subscriptions' direct=true
+                    +author_info
+                    .ui.header #{views} views
+                    .ui.header question type: #{question_type}
+                    +creation_info
                     div
-                    .ui.inline.header 
-                        i.clock.grey.icon
-                        strong #{when}
-                        small by
-                        strong #{_author_username}
-                    +i name='tags' cl='ui avatar image'
-                    each tags
-                        .ui.label #{this}
-                        // +flat_tag_picker
+                    | !{description}
+                    if image_id
+                        +image_view key='image_id' direct=true
+                    // +viewing
                     div
                     // +voting_full
                     +comments
                 .six.wide.column
-                    h1.ui.center.aligned.big.inline.header #{title}
-                    a(href="http://www.google.com/search?q=#{title}" target='_blank' title='search')
-                        i.grey.search.icon
+                    .ui.header choices
+                    .ui.doubling.two.cards.smallscroll
+                        each choice_docs
+                            .card(class=color)
+                                if image_id
+                                    img.ui.inline.image(src="{{c.url image_id width=400 height=400 gravity='face' crop='fill'}}")
+                            
+                                .content
+                                    .ui.header #{title}
+                .six.wide.column    
+                    .ui.big.fluid.blue.button.new_answer
+                        |answer
+                        i.right.chevron.large.icon
                     .ui.header 
-                        i.business.icon
-                        |#{company}
-                    // if image_url
-                    //     img.ui.inline.image(src=image_url)
-                    if image_id
-                        img.ui.inline.rounded.image(src="{{c.url image_id width=500 height=500 gravity='face' crop='fill'}}")
-                    if in_dev
-                        +print_this
-                .five.wide.column
-                    .ui.big.fluid.green.button.order_question 
-                        i.cart.big.icon
-                        .ui.inline.inverted.header
-                            |buy for $#{price_dollars}
-                    .ui.header section: #{section}
-                    // .ui.header also by #{company}
-                    .ui.header ratings
-                    +rating icon='pizza slice' value='3'
-                    // +product_orders
-                    
-                    .ui.header #{views} views
-                    // +doc_images
-                    // +reviews
-                    if youtube_id
-                        +youtube_view key='youtube_id' value='youtube id' icon='youtube'
+                        |#{answer_docs.count}
+                        |answers 
+                    .ui.list
+                        each answer_docs
+                            .item
+                                .content
+                                    .ui.header #{answer_choice_title}
+                                    i.user.icon 
+                                    |#{answer_username}
+                                    | #{when}
+                                    if in_dev
+                                        +remove_button
 
-// template(name='product_orders')
-//     .ui.inline.header 
-//         +i name='order-history'
-//         |orders
-//     if currentUser
-//         i.plus.link.icon.add_order
-        
-//     .ui.large.selection.list
-//         each order_docs
-//             .item #{when} #{_author_username}
-                    
-                    
+
+
 template(name='question_edit')
     with current_doc
         .ui.stackable.padded.grid
-            .row
-                .five.wide.column
-                    .ui.inline.header
-                        i.pencil.icon
-                        | #{title}
-                    a.ui.fluid.icon.green.button.fly_up(href="/question/#{_id}/" title='save question')
-                        i.checkmark.big.icon
-                    // a.ui.big.circular.icon.green.button.save_this(title='save')
-                    +text_edit key='title' label='title' direct=true
-                    +array_edit key='tags' label='tags' icon='tags' direct=true
-                    // +text_edit key='model' label='model' icon='database' direct=true
-                    // +image_link_edit key='image_url' label='image link' icon='image'
-                .five.wide.column
-                    +image_edit key='image_id' label='image' icon='image'
-                    div
-                    +number_edit key='price_dollars' label='price ($)' icon='money'
-                    +number_edit key='price_points' label='price (points)' icon='coins'
-                    +html_edit key='body' label='body' direct=true
-                    .ui.red.large.icon.button.delete_question(title='delete')
-                        i.remove.icon   
-                        // | delete
+            .row 
                 .six.wide.column
-                    +link_edit key='link' label='link' icon='link'
-                    // +text_edit key='section' label='menu section' icon='beer-recipe'
-                    // +key_value_set key='section' value='appetizers' icon='nachos'
-                    // +key_value_set key='section' value='soup' icon='soup-plate'
-                    // +key_value_set key='section' value='salad' icon='salad'
-                    // +key_value_set key='section' value='sandwiches' icon='sandwich'
-                    // +key_value_set key='section' value='pizza' icon='pizza'
-                    // +key_value_set key='section' value='burger' icon='hamburger'
-                    // +key_value_set key='section' value='dessert' icon='dessert'
-                    +youtube_edit key='youtube_id' value='youtube id' icon='youtube'
-                    +boolean_edit key='special' valeu='special' icon='star' direct=true            
+                    a.ui.icon.fluid.big.green.button(href="/question/#{_id}") 
+                        i.checkmark.large.icon
+                    +text_edit key='title' label='title' direct=true
+                    +html_edit key='description' label='description' direct=true
+                    +array_edit key='tags' label='tags' direct=true
+                    +image_edit key='image_id' label='image'
+                    +remove_button
+                .ten.wide.column
+                    div 
+                    +number_edit key='points_per_answer' value='points earned per answer'
+                    // +number_edit key='total_points_available' value='total points available'
+                    // .ui.header #{answers_funded} answers funded
+                    +key_value_set key='question_type' value='boolean' icon='switch-on'
+                    +key_value_set key='question_type' value='multiple_choice' icon='list'
+                    +key_value_set key='question_type' value='rating' icon='star'
+                    +key_value_set key='question_type' value='written' icon='list'
+                    .ui.hidden.divider
+                    if key_value_is 'question_type' 'boolean'
+                        +key_value_set key='boolean_type' value='yes/no' icon='thumbs-up'
+                        +key_value_set key='boolean_type' value='true/false' icon='switch-on'
+                        // +key_value_set key='boolean_type' value='true/false' icon='switch-on'
+                        
+                    if key_value_is 'question_type' 'rating'
+                        +number_edit key='max_rating' direct=true
+                    if key_value_is 'question_type' 'multiple_choice'
+                        .ui.header multiple choice
+                        +key_value_set key='multiple_choice_type' value='user_choice' icon='groups'
+                        +key_value_set key='multiple_choice_type' value='doc_choice' icon='database'
+                        +key_value_set key='multiple_choice_type' value='custom' icon='database'
+
+                        if key_value_is 'multiple_choice_type' 'custom'
+                            .ui.inline.header 
+                                |possible answers
+                            i.plus.link.circular.large.icon.add_choice
+                            div
+                            .ui.two.doubling.cards
+                                each choice_docs
+                                    .ui.card(class=color)
+                                        .content
+                                            // if image_id
+                                            //     img.ui.inline.image(src="{{c.url image_id width=400 height=400 gravity='face' crop='fill'}}")
+                                            +text_edit key='title' direct=true
+                                            +text_edit key='color' direct=true
+                                            +image_edit key='image_id' direct=true
+                                            +remove_button
+                                
+                            
+                            
+                            
+template(name='answer_edit')
+    with current_doc
+        .ui.stackable.padded.grid
+            .row 
+                .four.wide.column
+                    a.ui.icon.fluid.big.red.button.cancel_answer
+                        i.remove.icon
+                        
+                .twelve.wide.column
+                    .ui.header 
+                        |#{question_title}
+                    if answer_user_id 
+                        .ui.big.fluid.icon.green.button.complete_answer
+                            i.big.checkmark.icon
+                    .ui.hidden.divider
+                    if answer_title
+                        .ui.inline.header
+                            i.user.icon
+                            |pick user
+                        each unanswered_users 
+                            .ui.massive.button.choose_user.f12(class=user_picker_class)
+                                .f16 #{username}
+                                
+                    with question_doc
+                        if key_value_is 'question_type' 'boolean'
+                            .ui.header pick answer
+                            .ui.massive.button.yes(class=yes_class)
+                                |yes
+                            .ui.massive.button.no(class=no_class)
+                                |no
+                        else if key_value_is 'question_type' 'multiple_choice'
+                            .ui.inline.header pick choice
+                            each answer_choice_docs
+                                a.ui.massive.button.choose_answer(class=choice_class)
+                                    if image_id
+                                        img.ui.inline.small.image(src="{{c.url image_id width=800 height=800 gravity='face' crop='fill'}}")
+                                    .content
+                                        .header
+                                            |#{title}
+                        else if key_value_is 'question_type' 'rating'
+                            .ui.header rating
+                            +pick_rating
+                            
+                            
+                            
+template(name='pick_rating')
+    .ui.yellow.massive.rating(data-icon=icon data-rating=value)
