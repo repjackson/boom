@@ -10,19 +10,19 @@ if Meteor.isClient
         # @autorun => Meteor.subscribe 'my_cart_products'
 
     Template.nav.onRendered ->
-        Meteor.setTimeout ->
+        # Meteor.setTimeout ->
             # $('.menu .item')
             #     .popup()
-            $('.ui.left.sidebar')
-                .sidebar({
-                    context: $('.bottom')
-                    transition:'push'
-                    mobileTransition:'push'
-                    exclusive:true
-                    duration:250
-                    scrollLock:false
-                })
-                .sidebar('attach events', '.toggle_leftbar')
+            # $('.ui.left.sidebar')
+            #     .sidebar({
+            #         context: $('.bottom')
+            #         transition:'push'
+            #         mobileTransition:'push'
+            #         exclusive:true
+            #         duration:250
+            #         scrollLock:false
+            #     })
+            #     .sidebar('attach events', '.toggle_leftbar')
         # , 2000
         # Meteor.setTimeout ->
         #     $('.ui.rightbar')

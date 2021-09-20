@@ -107,8 +107,8 @@ template(name='user_layout')
                         // .spacer
                         +yield
     
-            // if in_role 'admin'
-            //     +admin_footer
+            if in_dev
+                +admin_footer
 
 
 
@@ -169,15 +169,15 @@ template(name='user_posts_small')
         a.item(href="/post/#{_id}") #{title}
                 
        
-template(name='user_topups')
-    .ui.inline.header 
-        +i name='donate'
-        |topups
-    .ui.button.topup
-        |topup
-    .ui.selection.animated.list.smallscroll
-        each topups
-            a.item(href="/topup/#{_id}") #{amount}p #{when}
+// template(name='user_topups')
+//     .ui.inline.header 
+//         +i name='donate'
+//         |topups
+//     .ui.button.topup
+//         |topup
+//     .ui.selection.animated.list.smallscroll
+//         each topups
+//             a.item(href="/topup/#{_id}") #{amount}p #{when}
        
        
        

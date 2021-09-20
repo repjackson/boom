@@ -58,8 +58,8 @@ Template.user_layout.onCreated ->
     @autorun -> Meteor.subscribe 'user_topups', Router.current().params.username, ->
 
 Template.user_layout.onRendered ->
-    Meteor.call 'calc_user_points', Router.current().params.username, ->
-    Meteor.call 'log_profile_view', Router.current().params.username, ->
+    # Meteor.call 'calc_user_points', Router.current().params.username, ->
+    # Meteor.call 'log_profile_view', Router.current().params.username, ->
     # Meteor.call 'calc_user_tags', Router.current().params.username, ->
     # Meteor.setTimeout ->
     #     $('.button').popup()

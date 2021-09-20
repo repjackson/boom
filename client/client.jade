@@ -43,14 +43,18 @@ template(name='layout')
         // +cartbar
         // +walletbar
         // +secnav
-        if logging_in
-            .ui.center.aligned.basic.segment
-                i.massive.loading.book.grey.icon
-        else
-            +yield
+        // if logging_in
+        //     .ui.center.aligned.basic.segment
+        //         i.massive.loading.book.grey.icon
+        // else
+        +yield
+    if in_dev
+        +admin_footer
     // .sixteen.wide.center.aligned.column
 
 
+template(name='admin_footer')
+    .ui.header admin footer
 template(name='home')
     .ui.stackable.padded.grid 
         .sixteen.wide.column

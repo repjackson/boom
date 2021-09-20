@@ -394,7 +394,9 @@ Meteor.publish 'query', (
     
 # Meteor.publish 'me', ()->
 
-# Meteor.publish 'user_from_username', (username)->
+Meteor.publish 'user_from_username', (username)->
+    Meteor.users.find 
+        username:username
 
 
 # Meteor.publish 'ref_doc', (tag)->
